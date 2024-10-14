@@ -18,42 +18,77 @@ const TicTacToe = (function () {
         console.log(board); 
     };
 
-    function checkForWin() {
+    function checkForWin(playerOneTurn, playerTwoTurn) {
         boardStatus();
         // Conditions for wins
         // Look to separate these based on Player Turn (X and O)
         // Horizontal wins
-        if (board[0] === 'X' && board[1] === 'X' && board[2] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else if (board[3] === 'X' && board[4] === 'X' && board[5] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else if (board[6] === 'X' && board[7] === 'X' && board[8] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-
-        // Vertical wins
-        } else if (board[0] === 'X' && board[3] === 'X' && board[6] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else if (board[1] === 'X' && board[4] === 'X' && board[7] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else if (board[2] === 'X' && board[5] === 'X' && board[8] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-
-        // Diagonal wins
-        } else if (board[0] === 'X' && board[4] === 'X' && board[8] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else if (board[2] === 'X' && board[4] === 'X' && board[6] === 'X') {
-            console.log("Player 1 wins");
-            win = true;
-        } else {
-            console.log("Game is still ongoing");
+        if (playerOneTurn) {
+            if (board[0] === 'X' && board[1] === 'X' && board[2] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else if (board[3] === 'X' && board[4] === 'X' && board[5] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else if (board[6] === 'X' && board[7] === 'X' && board[8] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+    
+            // Vertical wins
+            } else if (board[0] === 'X' && board[3] === 'X' && board[6] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else if (board[1] === 'X' && board[4] === 'X' && board[7] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else if (board[2] === 'X' && board[5] === 'X' && board[8] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+    
+            // Diagonal wins
+            } else if (board[0] === 'X' && board[4] === 'X' && board[8] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else if (board[2] === 'X' && board[4] === 'X' && board[6] === 'X') {
+                console.log("Player 1 wins");
+                win = true;
+            } else {
+                console.log("Game is still ongoing");
+            }
+        } else if (playerTwoTurn) {
+            if (board[0] === 'O' && board[1] === 'O' && board[2] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else if (board[3] === 'O' && board[4] === 'O' && board[5] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else if (board[6] === 'O' && board[7] === 'O' && board[8] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+    
+            // Vertical wins
+            } else if (board[0] === 'O' && board[3] === 'O' && board[6] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else if (board[1] === 'O' && board[4] === 'O' && board[7] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else if (board[2] === 'O' && board[5] === 'O' && board[8] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+    
+            // Diagonal wins
+            } else if (board[0] === 'O' && board[4] === 'O' && board[8] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else if (board[2] === 'O' && board[4] === 'O' && board[6] === 'O') {
+                console.log("Player 2 wins");
+                win = true;
+            } else {
+                console.log("Game is still ongoing");
+            }
         }
+        
 
         return win;
     }
@@ -66,12 +101,21 @@ const TicTacToe = (function () {
         let playerTwoTurn = false;
 
         while (running) {
-            console.log(`${playerOne}'s turn`)
             if (playerOneTurn && win == false) {
+                console.log(`${playerOne.name}'s turn`)
                 let choice = prompt('Which block? (1-9)');
                 board[choice - 1] = 'X';
-                checkForWin();
-            } 
+                playerOneTurn = false;
+                playerTwoTurn = true;
+                checkForWin(playerOneTurn, playerTwoTurn);
+            } else {
+                console.log(`${playerTwo.name}'s turn`)
+                let choice = prompt('Which block? (1-9)');
+                board[choice - 1] = 'O';
+                playerOneTurn = true;
+                playerTwoTurn = false;
+                checkForWin(playerOneTurn, playerTwoTurn);
+            }
         }
     }
 
