@@ -4,124 +4,61 @@
 
 // Since we only need one instance of the gameboard, I turned it into an IIFE
 const TicTacToe = (function () {
-    let board = ["_", "_", "_", 
-                   "_", "_", "_", 
-                   "_", "_", "_"];
+    let board = Array(9).fill(""); // Initialize board
     let win = false;
 
-    function createPlayer (name, symbol) {
-        const saySymbol = () => console.log(`${name}\'s symbol is ${symbol}`);
-        return {name, symbol, saySymbol};
+    const createPlayer = (name, symbol) => ({
+        name,
+        symbol,
+        saySymbol: () => console.log(`${name}'s symbol is ${symbol}`)
+    });
+
+    const boardStatus = () => {
+        console.log(board);
     };
 
-    function boardStatus() {
-        console.log(board); 
-    };
-
-    function checkForWin(playerOneTurn, playerTwoTurn) {
+    const checkForWin = (currentPlayer) => {
         boardStatus();
-        // Conditions for wins
-        // Look to separate these based on Player Turn (X and O)
-        // Horizontal wins
-        if (playerOneTurn) {
-            if (board[0] === 'X' && board[1] === 'X' && board[2] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else if (board[3] === 'X' && board[4] === 'X' && board[5] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else if (board[6] === 'X' && board[7] === 'X' && board[8] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-    
-            // Vertical wins
-            } else if (board[0] === 'X' && board[3] === 'X' && board[6] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else if (board[1] === 'X' && board[4] === 'X' && board[7] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else if (board[2] === 'X' && board[5] === 'X' && board[8] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-    
-            // Diagonal wins
-            } else if (board[0] === 'X' && board[4] === 'X' && board[8] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else if (board[2] === 'X' && board[4] === 'X' && board[6] === 'X') {
-                console.log("Player 1 wins");
-                win = true;
-            } else {
-                console.log("Game is still ongoing");
-            }
-        } else if (playerTwoTurn) {
-            if (board[0] === 'O' && board[1] === 'O' && board[2] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else if (board[3] === 'O' && board[4] === 'O' && board[5] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else if (board[6] === 'O' && board[7] === 'O' && board[8] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-    
-            // Vertical wins
-            } else if (board[0] === 'O' && board[3] === 'O' && board[6] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else if (board[1] === 'O' && board[4] === 'O' && board[7] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else if (board[2] === 'O' && board[5] === 'O' && board[8] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-    
-            // Diagonal wins
-            } else if (board[0] === 'O' && board[4] === 'O' && board[8] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else if (board[2] === 'O' && board[4] === 'O' && board[6] === 'O') {
-                console.log("Player 2 wins");
-                win = true;
-            } else {
-                console.log("Game is still ongoing");
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Horizontal
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical
+            [0, 4, 8], [2, 4, 6],            // Diagonal
+        ];
+
+        for (const pattern of winPatterns) {
+            if (pattern.every(index => board[index] === currentPlayer)) {
+                console.log(`Player ${currentPlayer === 'X' ? 1 : 2} wins`);
+                return true;
             }
         }
-        
+        return false; // Game is still ongoing
+    };
 
-        return win;
-    }
+    const startGame = () => {
+        const playerOne = createPlayer(prompt('Enter Player 1\'s name: '), 'X');
+        const playerTwo = createPlayer(prompt('Enter Player 2\'s name: '), 'O');
+        let currentPlayer = playerOne;
 
-    function startGame() {
-        playerOne = createPlayer(prompt('Enter Player 1\'s name: '), 'X');
-        playerTwo = createPlayer(prompt('Enter Player 2\'s name: '), 'O');
-        let running = true;
-        let playerOneTurn = true;
-        let playerTwoTurn = false;
-
-        while (running) {
-            if (playerOneTurn && win == false) {
-                console.log(`${playerOne.name}'s turn`)
-                let choice = prompt('Which block? (1-9)');
-                board[choice - 1] = 'X';
-                playerOneTurn = false;
-                playerTwoTurn = true;
-                checkForWin(playerOneTurn, playerTwoTurn);
+        while (!win) {
+            boardStatus(); // Display board status before each turn
+            console.log(`${currentPlayer.name}'s turn`);
+            let choice = prompt('Which block? (1-9)') - 1; // Convert to zero-based index
+            
+            if (board[choice] === "") { // Check if block is empty
+                board[choice] = currentPlayer.symbol;
+                win = checkForWin(currentPlayer.symbol); // Check for a win
+                if (!win) {
+                    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
+                }
             } else {
-                console.log(`${playerTwo.name}'s turn`)
-                let choice = prompt('Which block? (1-9)');
-                board[choice - 1] = 'O';
-                playerOneTurn = true;
-                playerTwoTurn = false;
-                checkForWin(playerOneTurn, playerTwoTurn);
+                console.log("That block is already taken. Try again.");
             }
         }
-    }
+    };
 
-    // return {boardStatus, createPlayer, boardStatus, checkForWin};
     return startGame();
 })();
+
 
 // Regular object way
 // function Player(name) {
