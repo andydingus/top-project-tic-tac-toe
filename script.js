@@ -3,6 +3,12 @@
 // Store the gameboard as an array inside of a Gameboard object
 
 // Since we only need one instance of the gameboard, I turned it into an IIFE
+
+// DOM variables
+const divGameBoard = document.getElementById('board');
+const gameBoardChildren = divGameBoard.children;
+// **CONTINUE OFF HERE**
+
 const TicTacToe = (function () {
     let board = Array(9).fill(""); // Initialize board
     let win = false;
@@ -17,6 +23,7 @@ const TicTacToe = (function () {
         console.log(board);
     };
 
+    // Need to test for wins eventually
     const checkForWin = (currentPlayer) => {
         boardStatus();
         const winPatterns = [
@@ -33,6 +40,10 @@ const TicTacToe = (function () {
         }
         return false; // Game is still ongoing
     };
+
+    const displayBoard = (board) => ({
+
+    });
 
     const startGame = () => {
         const playerOne = createPlayer(prompt('Enter Player 1\'s name: '), 'X');

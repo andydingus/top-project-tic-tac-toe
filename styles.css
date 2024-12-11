@@ -1,1 +1,12 @@
 /* Ready to be styled! */
+#board {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+#board div {
+    border: 2px solid black;
+}
