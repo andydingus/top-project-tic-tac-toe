@@ -7,17 +7,25 @@
 // DOM variables
 const divGameBoard = document.getElementById('board');
 const gameBoardChildren = divGameBoard.children;
-// **CONTINUE OFF HERE**
 
 const TicTacToe = (function () {
     let board = Array(9).fill(""); // Initialize board
     let win = false;
+    let playerOne, playerTwo;
+    let currentPlayer;
 
-    const createPlayer = (name, symbol) => ({
-        name,
-        symbol,
-        saySymbol: () => console.log(`${name}'s symbol is ${symbol}`)
-    });
+    // const createPlayer = (name, symbol) => ({
+    //     name,
+    //     symbol,
+    //     saySymbol: () => console.log(`${name}'s symbol is ${symbol}`)
+    // });
+    function CreatePlayer(name, symbol){
+        this.name = name;
+        this.symbol = symbol;
+        this.saySymbol = () => {
+            console.log(`${name}'s symbol is ${symbol}`)
+        };
+    }
 
     const boardStatus = () => {
         console.log(board);
@@ -41,34 +49,42 @@ const TicTacToe = (function () {
         return false; // Game is still ongoing
     };
 
-    const displayBoard = (board) => ({
+    const displayBoard = () => {
+        for (let i = 0; i < board.length; i++){
+            gameBoardChildren[i].textContent = board[i];
+        }
+    };
 
-    });
-
-    const startGame = () => {
-        const playerOne = createPlayer(prompt('Enter Player 1\'s name: '), 'X');
-        const playerTwo = createPlayer(prompt('Enter Player 2\'s name: '), 'O');
-        let currentPlayer = playerOne;
-
-        while (!win) {
-            boardStatus(); // Display board status before each turn
-            console.log(`${currentPlayer.name}'s turn`);
-            let choice = prompt('Which block? (1-9)') - 1; // Convert to zero-based index
-            
-            if (board[choice] === "") { // Check if block is empty
-                board[choice] = currentPlayer.symbol;
-                win = checkForWin(currentPlayer.symbol); // Check for a win
-                if (!win) {
-                    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
-                }
+    const handleMove = (index) => {
+        if (!win && board[index] === "") { // Check if game is still ongoing and spot is empty
+            board[index] = currentPlayer.symbol;
+            displayBoard();
+            if (checkForWin(currentPlayer.symbol)) {
+                setTimeout(() => {
+                    alert(`${currentPlayer.name} wins!`);
+                }, 100); // Small delay to let the UI update
             } else {
-                console.log("That block is already taken. Try again.");
+                currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
             }
         }
     };
 
-    return startGame();
+    const startGame = () => {
+        playerOne = new CreatePlayer(prompt('Enter Player 1\'s name: '), 'X');
+        playerTwo = new CreatePlayer(prompt('Enter Player 2\'s name: '), 'O');
+        currentPlayer = playerOne;
+
+        for (let i = 0; i < gameBoardChildren.length; i++){
+            gameBoardChildren[i].addEventListener('click', () => handleMove(i));
+        }
+
+        displayBoard(); // Display empty board
+    };
+
+    return {startGame};
 })();
+
+TicTacToe.startGame();
 
 
 // Regular object way
