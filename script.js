@@ -1,10 +1,5 @@
 // Ready to be scripted!
-// Step 1
-// Store the gameboard as an array inside of a Gameboard object
-
-// Since we only need one instance of the gameboard, I turned it into an IIFE
-
-// DOM variables
+// Current task: make symbols bigger when placed onto board
 const divGameBoard = document.getElementById('board');
 const gameBoardChildren = divGameBoard.children;
 
@@ -51,7 +46,19 @@ const TicTacToe = (function () {
 
     const displayBoard = () => {
         for (let i = 0; i < board.length; i++){
-            gameBoardChildren[i].textContent = board[i];
+            const cell = gameBoardChildren[i];
+            const previous = cell.textContent;
+            cell.textContent = board[i];
+
+            // Only animate if symbol was just placed
+            if (board[i] !== "" && previous !== board[i]) {
+                cell.classList.add("symbol-placed");
+
+                // Remove class after animation so it can be reapplied
+                setTimeout(() => {
+                    cell.classList.remove("symbol-placed");
+                }, 300); // Match your animation duration
+            }
         }
     };
 
@@ -62,6 +69,11 @@ const TicTacToe = (function () {
             if (checkForWin(currentPlayer.symbol)) {
                 setTimeout(() => {
                     alert(`${currentPlayer.name} wins!`);
+                }, 100); // Small delay to let the UI update
+                win = true;
+            } else if (board.every(cell => cell !== '')) {
+                setTimeout(() => {
+                    alert('It\'s a tie!');
                 }, 100); // Small delay to let the UI update
             } else {
                 currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
