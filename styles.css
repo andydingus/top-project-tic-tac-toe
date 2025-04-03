@@ -1,7 +1,15 @@
 /* Ready to be styled! */
+#gameSpace, #gameInfo, #btnContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#gameSpace {
+    padding: 10rem;
+}
 #board {
-    width: 500px;
-    height: 500px;
+    min-width: 500px;
+    min-height: 500px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
