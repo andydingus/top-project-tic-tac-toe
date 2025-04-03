@@ -1,6 +1,10 @@
 // Ready to be scripted!
 // Current task: make symbols bigger when placed onto board
+
+// Clean up the interface to allow players to put in their names, include a button to start/restart the game and add a display element that shows the results upon game end!
 const divGameBoard = document.getElementById('board');
+const gameInfo = document.getElementById('gameInfo');
+const gameInfoChildren = gameInfo.children;
 const gameBoardChildren = divGameBoard.children;
 
 const TicTacToe = (function () {
