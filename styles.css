@@ -1,12 +1,20 @@
 /* Ready to be styled! */
-#gameSpace, #gameInfo, #btnContainer {
+#gameSpace, #gameInfo, #btnContainer, #status{
     display: flex;
     justify-content: center;
 }
 
 #gameSpace {
     padding: 10rem;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
 }
+
+#statusText {
+    text-align: center;
+}
+
 #board {
     min-width: 500px;
     min-height: 500px;
@@ -30,6 +38,42 @@
     cursor: pointer;
 }
 
+/* Input names styles */
+#gameInfo {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    font-family: sans-serif;
+}
+
+#gameInfo > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gameInfo label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#gameInfo input {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    min-width: 180px;
+    text-align: center;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#gameInfo input:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
 
 /* Animations */
 .symbol-placed {

@@ -4,9 +4,10 @@
 // Add function to startButton. Remove lines 90 and 91 with input on page under Enter Player 1/2's name
 const divGameBoard = document.getElementById('board');
 const gameInfo = document.getElementById('gameInfo');
-const btnStart = document.getElementById('btnStart');
+const btnStartReset = document.getElementById('btnStartReset');
 const gameInfoChildren = gameInfo.children;
 const gameBoardChildren = divGameBoard.children;
+const statusText = document.getElementById('statusText');
 
 const TicTacToe = (function () {
     let board = Array(9).fill(""); // Initialize board
@@ -39,10 +40,12 @@ const TicTacToe = (function () {
             [0, 3, 6], [1, 4, 7], [2, 5, 8], // Vertical
             [0, 4, 8], [2, 4, 6],            // Diagonal
         ];
-
+        
         for (const pattern of winPatterns) {
             if (pattern.every(index => board[index] === currentPlayer)) {
                 console.log(`Player ${currentPlayer === 'X' ? 1 : 2} wins`);
+                btnStartReset.disabled = false;
+                btnStartReset.textContent = 'Reset';
                 return true;
             }
         }
@@ -76,32 +79,52 @@ const TicTacToe = (function () {
                     alert(`${currentPlayer.name} wins!`);
                 }, 100); // Small delay to let the UI update
                 win = true;
+                statusText.innerHTML = 'Game has ended.<br>Enter names (optional) and reset the game!';
             } else if (board.every(cell => cell !== '')) {
                 setTimeout(() => {
                     alert('It\'s a tie!');
                 }, 100); // Small delay to let the UI update
             } else {
                 currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
+                statusText.textContent = `${currentPlayer.name}'s turn`;
             }
         }
     };
 
     const startGame = () => {
-        playerOne = new CreatePlayer(prompt('Enter Player 1\'s name: '), 'X');
-        playerTwo = new CreatePlayer(prompt('Enter Player 2\'s name: '), 'O');
+        btnStartReset.disabled = true;
+
+        const nameOne = document.getElementById('playerOneName').value || 'Player 1';
+        const nameTwo = document.getElementById('playerTwoName').value || 'Player 2';
+
+        playerOne = new CreatePlayer(nameOne, 'X');
+        playerTwo = new CreatePlayer(nameTwo, 'O');
         currentPlayer = playerOne;
+        statusText.textContent = `${currentPlayer.name}'s turn`;
+
+        board = Array(9).fill("");
+        win = false;
+        displayBoard();
+        btnStartReset.textContent = 'Reset';
 
         for (let i = 0; i < gameBoardChildren.length; i++){
+            gameBoardChildren[i].textContent = '';
             gameBoardChildren[i].addEventListener('click', () => handleMove(i));
         }
 
         displayBoard(); // Display empty board
+
+        // Resets names
+        document.getElementById('playerOneName').value = '';
+        document.getElementById('playerTwoName').value = '';
     };
+
+    btnStartReset.addEventListener('click', () => {
+        TicTacToe.startGame();
+    });
 
     return {startGame};
 })();
-
-TicTacToe.startGame();
 
 
 // Regular object way

@@ -8,26 +8,39 @@
 </head>
 <body>
     <div id="gameSpace">
-        <div id="board">
-            <div id="box1"></div>
-            <div id="box2"></div>
-            <div id="box3"></div>
-            <div id="box4"></div>
-            <div id="box5"></div>
-            <div id="box6"></div>
-            <div id="box7"></div>
-            <div id="box8"></div>
-            <div id="box9"></div>
+        <div>
+            <div id="board">
+                <div id="box1"></div>
+                <div id="box2"></div>
+                <div id="box3"></div>
+                <div id="box4"></div>
+                <div id="box5"></div>
+                <div id="box6"></div>
+                <div id="box7"></div>
+                <div id="box8"></div>
+                <div id="box9"></div>
+            </div>
+        </div>
+        <div id="status">
+            <p id="statusText"></p>
         </div>
     </div>
+
+    
     
     <div id="btnContainer">
-        <button id="btnStart">Start</button>
+        <button id="btnStartReset">Start</button>
     </div>
 
     <div id="gameInfo">
-        <div id="playerOneInfo"><p>Enter Player 1's name:</p></div>    
-        <div id="playerTwoInfo"><p>Enter Player 2's name:</p></div>
+        <div id="playerOneInfo">
+            <label for="playerOneName">Enter Player 1's name:</label>
+            <input type="text" id="playerOneName" name="Player 1">
+        </div>    
+        <div id="playerTwoInfo">
+            <label for="playerTwoName">Enter Player 2's name:</label>
+            <input type="text" id="playerTwoName" name="Player 2">
+        </div>
     </div>
     
     <script src="script.js"></script>
