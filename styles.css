@@ -1,18 +1,22 @@
 /* Ready to be styled! */
+* {
+    font-family: "Jua", sans-serif;
+}
 #gameSpace, #gameInfo, #btnContainer, #status{
     display: flex;
     justify-content: center;
 }
 
 #gameSpace {
-    padding: 10rem;
+    padding: 5rem;
     align-items: center;
     flex-direction: column;
-    gap: 3rem;
+    gap: 1.5rem;
 }
 
 #statusText {
     text-align: center;
+    font-size: 1.5rem;
 }
 
 #board {
@@ -38,13 +42,55 @@
     cursor: pointer;
 }
 
+/* --- Button Container Styling --- */
+#btnContainer {
+    text-align: center; /* Centers the button horizontally */
+    margin-top: 20px;   /* Adds some space above the button */
+    margin-bottom: 20px; /* Adds some space below the button */
+  }
+  
+/* --- Button Styling --- */
+#btnStartReset {
+    padding: 10px 25px;         /* Adds space inside the button (top/bottom, left/right) */
+    font-family: 'Jua', sans-serif; /* Uses the imported font */
+    font-size: 1.2em;           /* Makes the font slightly larger */
+    color: white;               /* Sets the text color */
+    background-color: #4CAF50;  /* A nice green background */
+    border: none;               /* Removes the default browser border */
+    border-radius: 5px;         /* Rounds the corners slightly */
+    cursor: pointer;            /* Changes the cursor to a pointer on hover */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions for hover/active states */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+/* --- Button Hover Effect --- */
+#btnStartReset:hover {
+    background-color: #45a049; /* Darkens the background slightly on hover */
+}
+
+/* --- Button Active (Click) Effect --- */
+#btnStartReset:active {
+    background-color: #3e8e41; /* Darkens the background more when clicked */
+    transform: translateY(1px); /* Gives a slight "pressed down" effect */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Reduces the shadow slightly when pressed */
+}
+
+/* --- Button Disabled State --- */
+#btnStartReset:disabled {
+    background-color: #cccccc; /* Grey background */
+    color: #666666;           /* Dark grey text */
+    cursor: not-allowed;      /* Shows a 'not allowed' cursor */
+    box-shadow: none;         /* Remove shadow when disabled */
+    opacity: 0.7;             /* Make it slightly transparent */
+    /* transform: none; (Implicitly no transform) */
+}
+
 /* Input names styles */
 #gameInfo {
     display: flex;
     justify-content: center;
     gap: 2rem;
     margin-top: 2rem;
-    font-family: sans-serif;
 }
 
 #gameInfo > div {
@@ -55,8 +101,8 @@
 
 #gameInfo label {
     margin-bottom: 0.5rem;
-    font-weight: bold;
     font-size: 1.2rem;
+    font-size: 20px;
 }
 
 #gameInfo input {
@@ -75,6 +121,13 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Font classes */
+.jua-regular {
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
 /* Animations */
 .symbol-placed {
     animation: bounce-in 0.4s ease;
