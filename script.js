@@ -76,10 +76,10 @@ const TicTacToe = (function () {
             displayBoard();
             if (checkForWin(currentPlayer.symbol)) {
                 setTimeout(() => {
-                    alert(`${currentPlayer.name} wins!`);
+                    // alert(`${currentPlayer.name} wins!`);
                 }, 100); // Small delay to let the UI update
                 win = true;
-                statusText.innerHTML = 'Game has ended.<br>Enter names (optional) and reset the game!';
+                statusText.innerHTML = `${currentPlayer.name} wins!<br>Game has ended. Enter names (optional) and reset the game!`;
             } else if (board.every(cell => cell !== '')) {
                 setTimeout(() => {
                     alert('It\'s a tie!');
