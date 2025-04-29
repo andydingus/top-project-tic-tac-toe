@@ -1,134 +1,173 @@
-/* Ready to be styled! */
-* {
-    font-family: "Jua", sans-serif;
-}
-#gameSpace, #gameInfo, #btnContainer, #status{
+/* Import the font (already in your HTML, but good practice to have in CSS too) */
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+/* Basic Reset & Body Styling */
+body {
+    font-family: 'Jua', sans-serif; /* Apply the font */
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically (for initial load) */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    background-color: #f0f0f0; /* Light grey background */
+    color: #333; /* Default text color */
+    margin: 0;
+    padding: 20px; /* Add some padding around the content */
+    box-sizing: border-box;
+
+    background-image: url('images/test.jpg'); /* Path to your GIF */
+    background-color: #f0f0f0; /* Fallback color if image fails or while loading */
+    background-size: cover;   /* Scale image to cover the entire background */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from tiling */
+    background-attachment: fixed; /* Keep background fixed during scroll */
 }
 
+/* Game Area Container */
 #gameSpace {
-    padding: 5rem;
-    align-items: center;
+    display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 20px; /* Space below the game board/status */
+}
+
+/* Game Board Styling */
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); /* 3 columns, 100px wide each */
+    grid-template-rows: repeat(3, 100px);    /* 3 rows, 100px high each */
+    gap: 5px; /* Space between grid cells */
+    background-color: #555; /* Darker background for grid lines */
+    border: 5px solid #555; /* Border matching the gap color */
+    border-radius: 10px; /* Slightly rounded corners for the board */
+    margin-bottom: 15px; /* Space below the board */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+/* Individual Box Styling */
+#board > div {
+    background-color: #fff; /* White background for cells */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5em; /* Large font size for X and O */
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Smooth hover effect */
+    border-radius: 5px; 
+    color: #444; 
+}
+
+#board > div:hover {
+    background-color: #e9e9e9; 
+}
+
+/* Status Text Styling */
+#status {
+    margin-top: 10px; 
+    min-height: 1.5em; 
 }
 
 #statusText {
+    font-size: 1.5em; 
+    color: #2c3e50; 
     text-align: center;
-    font-size: 1.5rem;
+    font-weight: bold; 
 }
 
-#board {
-    min-width: 500px;
-    min-height: 500px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-}
-
-#board div {
-    border: 2px solid black;
-    font-size: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cell {
-    position: relative;
-    text-align: center;
-    font-size: 3rem;
-    cursor: pointer;
-}
-
-/* --- Button Container Styling --- */
+/* Button Container */
 #btnContainer {
-    text-align: center; /* Centers the button horizontally */
-    margin-top: 20px;   /* Adds some space above the button */
-    margin-bottom: 20px; /* Adds some space below the button */
-  }
-  
-/* --- Button Styling --- */
+    margin-bottom: 25px; 
+}
+
+/* Button Styling */
 #btnStartReset {
-    padding: 10px 25px;         /* Adds space inside the button (top/bottom, left/right) */
-    font-family: 'Jua', sans-serif; /* Uses the imported font */
-    font-size: 1.2em;           /* Makes the font slightly larger */
-    color: white;               /* Sets the text color */
-    background-color: #4CAF50;  /* A nice green background */
-    border: none;               /* Removes the default browser border */
-    border-radius: 5px;         /* Rounds the corners slightly */
-    cursor: pointer;            /* Changes the cursor to a pointer on hover */
-    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions for hover/active states */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    font-family: 'Jua', sans-serif; 
+    padding: 12px 25px;
+    font-size: 1.2em;
+    background-color: #3498db; 
+    color: white;
+    border: none;
+    border-radius: 25px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+    box-shadow: 0 5px 0 #2471a3,
+                0 7px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Button Hover Effect --- */
 #btnStartReset:hover {
-    background-color: #45a049; /* Darkens the background slightly on hover */
+    background-color: #2980b9; 
 }
 
-/* --- Button Active (Click) Effect --- */
 #btnStartReset:active {
-    background-color: #3e8e41; /* Darkens the background more when clicked */
-    transform: translateY(1px); /* Gives a slight "pressed down" effect */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Reduces the shadow slightly when pressed */
+    background-color: #2471a3; 
+    transform: translateY(3px); 
+    box-shadow: 0 2px 0 #2471a3,
+                0 4px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Button Disabled State --- */
 #btnStartReset:disabled {
-    background-color: #cccccc; /* Grey background */
-    color: #666666;           /* Dark grey text */
-    cursor: not-allowed;      /* Shows a 'not allowed' cursor */
-    box-shadow: none;         /* Remove shadow when disabled */
-    opacity: 0.7;             /* Make it slightly transparent */
-    /* transform: none; (Implicitly no transform) */
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0.7;
+    transform: none;
 }
 
-/* Input names styles */
+/* Player Info Section */
 #gameInfo {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 30px; 
+    background-color: #ffffff; 
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center; 
 }
 
-#gameInfo > div {
+#playerOneInfo,
+#playerTwoInfo {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
+/* Label Styling */
 #gameInfo label {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    font-size: 20px;
-}
-
-#gameInfo input {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    min-width: 180px;
+    margin-bottom: 8px; 
+    font-size: 1em;
+    color: #555;
     text-align: center;
-    transition: border 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
 }
 
-#gameInfo input:focus {
-    outline: none;
-    border-color: #666;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+/* Input Field Styling */
+#gameInfo input[type="text"] {
+    font-family: 'Jua', sans-serif; 
+    padding: 8px 12px;
+    border: 2px solid #ccc;
+    border-radius: 15px; 
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    width: 150px; 
 }
 
-/* Font classes */
-.jua-regular {
-    font-family: "Jua", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+#gameInfo input[type="text"]:focus {
+    border-color: #3498db; 
+    outline: none; 
 }
-  
-/* Animations */
+
+/* Optional: Add specific colors for X and O if you plan to add classes via JS */
+.x-marker {
+    color: #e74c3c; /* A nice red for X */
+}
+
+.o-marker {
+    color: #3498db; /* Matching blue for O */
+}
+
 .symbol-placed {
     animation: bounce-in 0.4s ease;
 }
