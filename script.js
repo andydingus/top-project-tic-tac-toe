@@ -92,17 +92,13 @@ const TicTacToe = (function () {
     };
 
     const showGameInfoWithAnimation = () => {
-        // Function to remove the .visible class after animation
         const removeVisibleClass = () => {
             gameInfo.classList.remove('visible');
-            // Remove this specific listener now that it has run
             gameInfo.removeEventListener('animationend', removeVisibleClass);
         }
 
-        // Add the listener before starting the animation
         gameInfo.addEventListener('animationend', removeVisibleClass);
 
-        // Start the animation: remove .hidden, add .visible
         gameInfo.classList.remove('hidden');
         gameInfo.classList.add('visible');
     }    
