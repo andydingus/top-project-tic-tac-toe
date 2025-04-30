@@ -78,6 +78,7 @@ const TicTacToe = (function () {
                 setTimeout(() => {}, 100); // Small delay to let the UI update
                 win = true;
                 statusText.innerHTML = `${currentPlayer.name} wins!<br>Game has ended. Enter names (optional) and reset the game!`;
+                showGameInfoWithAnimation();
             } else if (board.every(cell => cell !== '')) {
                 setTimeout(() => {}, 100);
                 statusText.innerHTML = 'It\'s a tie!'; // Small delay to let the UI update
@@ -90,6 +91,22 @@ const TicTacToe = (function () {
         }
     };
 
+    const showGameInfoWithAnimation = () => {
+        // Function to remove the .visible class after animation
+        const removeVisibleClass = () => {
+            gameInfo.classList.remove('visible');
+            // Remove this specific listener now that it has run
+            gameInfo.removeEventListener('animationend', removeVisibleClass);
+        }
+
+        // Add the listener before starting the animation
+        gameInfo.addEventListener('animationend', removeVisibleClass);
+
+        // Start the animation: remove .hidden, add .visible
+        gameInfo.classList.remove('hidden');
+        gameInfo.classList.add('visible');
+    }    
+
     const startGame = () => {
         btnStartReset.disabled = true;
 
@@ -100,6 +117,10 @@ const TicTacToe = (function () {
         playerTwo = new CreatePlayer(nameTwo, 'O');
         currentPlayer = playerOne;
         statusText.textContent = `${currentPlayer.name}'s turn`;
+
+        // Trigger CSS animation for Player names
+        gameInfo.classList.remove('visible');
+        gameInfo.classList.add('hidden');
 
         board = Array(9).fill("");
         win = false;
