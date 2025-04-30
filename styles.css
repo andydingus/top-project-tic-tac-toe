@@ -3,24 +3,24 @@
 
 /* Basic Reset & Body Styling */
 body {
-    font-family: 'Jua', sans-serif; /* Apply the font */
+    font-family: 'Jua', sans-serif;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically (for initial load) */
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    background-color: #f0f0f0; /* Light grey background */
-    color: #333; /* Default text color */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    color: #333;
     margin: 0;
-    padding: 20px; /* Add some padding around the content */
+    padding: 20px;
     box-sizing: border-box;
 
-    background-image: url('images/test.jpg'); /* Path to your GIF */
-    background-color: #f0f0f0; /* Fallback color if image fails or while loading */
-    background-size: cover;   /* Scale image to cover the entire background */
-    background-position: center center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from tiling */
-    background-attachment: fixed; /* Keep background fixed during scroll */
+    background-image: url('images/test.jpg');
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Game Area Container */
@@ -28,66 +28,66 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px; /* Space below the game board/status */
+    margin-bottom: 20px;
 }
 
 /* Game Board Styling */
 #board {
     display: grid;
-    grid-template-columns: repeat(3, 100px); /* 3 columns, 100px wide each */
-    grid-template-rows: repeat(3, 100px);    /* 3 rows, 100px high each */
-    gap: 5px; /* Space between grid cells */
-    background-color: #555; /* Darker background for grid lines */
-    border: 5px solid #555; /* Border matching the gap color */
-    border-radius: 10px; /* Slightly rounded corners for the board */
-    margin-bottom: 15px; /* Space below the board */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #555;
+    border: 5px solid #555;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Individual Box Styling */
 #board > div {
-    background-color: #fff; /* White background for cells */
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3.5em; /* Large font size for X and O */
+    font-size: 3.5em;
     cursor: pointer;
-    transition: background-color 0.2s ease; /* Smooth hover effect */
-    border-radius: 5px; 
-    color: #444; 
+    transition: background-color 0.2s ease;
+    border-radius: 5px;
+    color: #444;
 }
 
 #board > div:hover {
-    background-color: #e9e9e9; 
+    background-color: #e9e9e9;
 }
 
 /* Status Text Styling */
 #status {
-    margin-top: 10px; 
-    min-height: 1.5em; 
+    margin-top: 10px;
+    min-height: 1.5em;
 }
 
 #statusText {
-    font-size: 1.5em; 
-    color: #2c3e50; 
+    font-size: 1.5em;
+    color: #2c3e50;
     text-align: center;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 /* Button Container */
 #btnContainer {
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
 }
 
 /* Button Styling */
 #btnStartReset {
-    font-family: 'Jua', sans-serif; 
+    font-family: 'Jua', sans-serif;
     padding: 12px 25px;
     font-size: 1.2em;
-    background-color: #3498db; 
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 25px; 
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -97,12 +97,12 @@ body {
 }
 
 #btnStartReset:hover {
-    background-color: #2980b9; 
+    background-color: #2980b9;
 }
 
 #btnStartReset:active {
-    background-color: #2471a3; 
-    transform: translateY(3px); 
+    background-color: #2471a3;
+    transform: translateY(3px);
     box-shadow: 0 2px 0 #2471a3,
                 0 4px 3px rgba(0, 0, 0, 0.2);
 }
@@ -119,24 +119,24 @@ body {
 /* Player Info Section */
 #gameInfo {
     display: flex;
-    gap: 30px; 
-    background-color: #ffffff; 
+    gap: 30px;
+    background-color: #ffffff;
     padding: 20px 30px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    align-items: center; 
+    align-items: center;
 }
 
 #playerOneInfo,
 #playerTwoInfo {
     display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 /* Label Styling */
 #gameInfo label {
-    margin-bottom: 8px; 
+    margin-bottom: 8px;
     font-size: 1em;
     color: #555;
     text-align: center;
@@ -145,27 +145,27 @@ body {
 
 /* Input Field Styling */
 #gameInfo input[type="text"] {
-    font-family: 'Jua', sans-serif; 
+    font-family: 'Jua', sans-serif;
     padding: 8px 12px;
     border: 2px solid #ccc;
-    border-radius: 15px; 
+    border-radius: 15px;
     font-size: 1em;
     transition: border-color 0.3s ease;
-    width: 150px; 
+    width: 150px;
 }
 
 #gameInfo input[type="text"]:focus {
-    border-color: #3498db; 
-    outline: none; 
+    border-color: #3498db;
+    outline: none;
 }
 
 /* Optional: Add specific colors for X and O if you plan to add classes via JS */
 .x-marker {
-    color: #e74c3c; /* A nice red for X */
+    color: #e74c3c;
 }
 
 .o-marker {
-    color: #3498db; /* Matching blue for O */
+    color: #3498db;
 }
 
 .symbol-placed {
