@@ -77,13 +77,17 @@ const TicTacToe = (function () {
             if (checkForWin(currentPlayer.symbol)) {
                 setTimeout(() => {}, 100); // Small delay to let the UI update
                 win = true;
-                statusText.innerHTML = `${currentPlayer.name} wins!<br>Game has ended. Enter names (optional) and reset the game!`;
+                statusText.innerHTML = `${currentPlayer.name} wins!`;
                 showGameInfoWithAnimation();
+                playAgain.classList.remove('hidden');
+                playAgain.classList.add('visible');
             } else if (board.every(cell => cell !== '')) {
                 setTimeout(() => {}, 100);
                 statusText.innerHTML = 'It\'s a tie!'; // Small delay to let the UI update
                 btnStartReset.disabled = false;
                 btnStartReset.textContent = 'Reset';
+                playAgain.classList.remove('hidden');
+                playAgain.classList.add('visible');
             } else {
                 currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne; // Switch players
                 statusText.textContent = `${currentPlayer.name}'s turn`;
@@ -92,15 +96,15 @@ const TicTacToe = (function () {
     };
 
     const showGameInfoWithAnimation = () => {
-        const removeVisibleClass = () => {
-            gameInfo.classList.remove('visible');
-            gameInfo.removeEventListener('animationend', removeVisibleClass);
-        }
-
-        gameInfo.addEventListener('animationend', removeVisibleClass);
-
-        gameInfo.classList.remove('hidden');
-        gameInfo.classList.add('visible');
+        const elementsToBeVisible = [gameInfo, playAgain];
+        elementsToBeVisible.forEach(element => {
+            if (element) {
+                element.classList.remove('hidden');
+                element.classList.add('visible');
+            } else {
+                console.warn("showGameInfoWithAnimation: An element expected for animation is missing.")
+            }
+        });
     }    
 
     const startGame = () => {
@@ -114,9 +118,11 @@ const TicTacToe = (function () {
         currentPlayer = playerOne;
         statusText.textContent = `${currentPlayer.name}'s turn`;
 
-        // Trigger CSS animation for Player names
+        // Trigger CSS animation for Player names and PLay again
         gameInfo.classList.remove('visible');
         gameInfo.classList.add('hidden');
+        playAgain.classList.remove('visible');
+        playAgain.classList.add('hidden');
 
         board = Array(9).fill("");
         win = false;

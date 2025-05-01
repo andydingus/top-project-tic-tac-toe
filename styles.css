@@ -152,6 +152,7 @@ body {
     align-items: flex-start;
 }
 
+
 /* Label Styling */
 #gameInfo label {
     margin-bottom: 8px;
@@ -175,6 +176,14 @@ body {
 #gameInfo input[type="text"]:focus {
     border-color: #3498db;
     outline: none;
+}
+
+#playAgain.hidden {
+    visibility: hidden;
+}
+
+#playAgain.visible {
+    visibility: visible;
 }
 
 /* Animations */
