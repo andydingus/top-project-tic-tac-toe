@@ -8,11 +8,19 @@ const btnStartReset = document.getElementById('btnStartReset');
 const gameInfoChildren = gameInfo.children;
 const gameBoardChildren = divGameBoard.children;
 const statusText = document.getElementById('statusText');
+const resultsText = document.getElementById('resultsText');
+const resultsDiv = document.getElementById('results');
 
 const TicTacToe = (function () {
     let board = Array(9).fill(""); // Initialize board
     let win = false;
     let playerOne, playerTwo;
+    let playerOneWins = 0;
+    let playerTwoWins = 0;
+    let playerOneLosses = 0;
+    let playerTwoLosses = 0;
+    let playerOneTies = 0;
+    let playerTwoTies = 0;
     let currentPlayer;
 
     // const createPlayer = (name, symbol) => ({
@@ -70,6 +78,26 @@ const TicTacToe = (function () {
         }
     };
 
+    const updateScoreDisplay = () => {
+        if (!playerOne || !playerTwo) {
+             console.warn("updateScoreDisplay: Player objects not yet initialized.");
+             return;
+        }
+        const scoreTitleHTML = '<span class="score-title">Score</span><br>';
+        resultsText.innerHTML = `${scoreTitleHTML}
+            ${playerOne.name}: Wins ${playerOneWins}, Losses ${playerOneLosses}, Ties ${playerOneTies}<br>
+            ${playerTwo.name}: Wins ${playerTwoWins}, Losses ${playerTwoLosses}, Ties ${playerTwoTies}`;
+        
+        // // Trigger animation
+        // const animationDuration = 700; // *** MUST match CSS animation-duration in milliseconds ***
+
+        // resultsText.classList.add('score-updated');
+
+        // setTimeout(() => {
+        //     resultsText.classList.remove('score-updated');
+        // }, animationDuration);
+    };
+
     const handleMove = (index) => {
         if (!win && board[index] === "") { // Check if game is still ongoing and spot is empty
             board[index] = currentPlayer.symbol;
@@ -78,12 +106,25 @@ const TicTacToe = (function () {
                 setTimeout(() => {}, 100); // Small delay to let the UI update
                 win = true;
                 statusText.innerHTML = `${currentPlayer.name} wins!`;
+                if (currentPlayer === playerOne) {
+                    playerOneWins+= 1;
+                    playerTwoLosses++;
+                    console.log(playerOneWins);
+                } else {
+                    playerTwoWins++;
+                    playerOneLosses++;
+                }
+                updateScoreDisplay();
+                resultsDiv.classList.remove('hidden-fade');
                 showGameInfoWithAnimation();
                 playAgain.classList.remove('hidden');
                 playAgain.classList.add('visible');
             } else if (board.every(cell => cell !== '')) {
                 setTimeout(() => {}, 100);
                 statusText.innerHTML = 'It\'s a tie!'; // Small delay to let the UI update
+                playerOneTies++, playerTwoTies++;
+                updateScoreDisplay();
+                resultsDiv.classList.remove('hidden-fade');
                 btnStartReset.disabled = false;
                 btnStartReset.textContent = 'Reset';
                 playAgain.classList.remove('hidden');
@@ -117,6 +158,8 @@ const TicTacToe = (function () {
         playerTwo = new CreatePlayer(nameTwo, 'O');
         currentPlayer = playerOne;
         statusText.textContent = `${currentPlayer.name}'s turn`;
+
+        resultsDiv.classList.add('hidden-fade');
 
         // Trigger CSS animation for Player names and PLay again
         gameInfo.classList.remove('visible');

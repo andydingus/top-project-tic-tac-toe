@@ -74,6 +74,54 @@ body {
     font-weight: bold;
 }
 
+#resultsText {
+    text-align: center;
+}
+
+#results {
+    margin-top: 15px; /* Adds some space below the status text */
+    margin-bottom: 15px; /* Adds some space above the button */
+    width: 100%; /* Ensures it spans the width within its container */
+    /* Optional: Add a background if you want to visually contain the score */
+    background-color: rgba(255, 255, 255, 0.8);  
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    opacity: 1; /* Start fully visible */
+    transition: opacity 0.5s ease-in-out; /* Animate opacity changes over 0.5 seconds */
+    pointer-events: auto; /* Allow mouse interactions by default */
+}
+
+#results.hidden-fade {
+    opacity: 0; /* Fade out */
+    pointer-events: none; /* Disable mouse interactions when hidden */
+}
+
+#resultsText {
+    font-size: 1.3em;  /* Slightly smaller than status text, or use 1.5em to match */
+    color: #2c3e50;   /* Same color as status text for consistency */
+    text-align: center; /* You already have this, confirms centering */
+    line-height: 1.6; /* Improves readability for the two lines of scores */
+    margin: 0;         /* Removes any default browser margins on the paragraph */
+    min-height: 2em; /* Helps prevent layout shifts when text appears */
+    padding: 5px 0;    /* Adds a little vertical space inside the paragraph */
+}
+
+/* You might want to style the "Score" title differently. */
+/* If you update the JS to wrap "Score" in a span like: */
+/* resultsText.innerHTML = `<span class="score-title">Score</span><br>...` */
+/* Then you could add styles like this: */
+
+.score-title {
+    font-weight: bold;
+    /* display: block; */
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+
 /* Button Container */
 #btnContainer {
     margin-bottom: 25px;
